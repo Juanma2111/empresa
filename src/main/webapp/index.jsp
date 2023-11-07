@@ -5,15 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Menú de Opciones</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
   <h1>Menu de Opciones</h1>
   <table border="1">
   <tr>
-    <td><a href="empleados?opcion=crear"> Crear un empleado</a></td>
+    <td><a href="empleados?opcion=buscarNomina"> Buscar el salario de un empleado por DNI</a></td>
   </tr>
   <tr>
     <td><a href="empleados?opcion=listar"> Listar empleados</a></td>
+  </tr>
+  <tr>
+    <td><a href="empleados?opcion=filtrado"> Filtrar empleados</a></td>
   </tr>
 </table>
 </body>

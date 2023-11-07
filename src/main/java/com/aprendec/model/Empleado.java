@@ -1,7 +1,5 @@
 package com.aprendec.model;
- 
-import java.sql.Date;
- 
+  
 public class Empleado {
  
  private int id;
@@ -9,16 +7,15 @@ public class Empleado {
  private String nombre;
  private String sexo;
  private int categoria;
- private int años;
+ private int anyos;
  
- public Empleado(int id, String DNI, String nombre, String sexo, int categoria, int años) {
-  super();
+ public Empleado(int id, String DNI, String nombre, String sexo, int categoria, int anyos) {
   this.id = id;
   this.DNI = DNI;
   this.nombre = nombre;
   this.sexo = sexo;
   this.categoria = categoria;
-  this.años = años;
+  this.anyos = anyos;
  }
  
  public Empleado() {
@@ -50,7 +47,6 @@ public class Empleado {
  }
  
  
- 
  public String getSexo() {
   return sexo;
  }
@@ -67,18 +63,18 @@ public class Empleado {
 	 this.categoria = categoria;
  }
  
- public int getAño() {
-	 return años;
+ public int getAnyo() {
+	 return anyos;
  }
  
- public void setAño(int años) {
-	 this.años = años;
+ public void setAnyo(int anyos) {
+	 this.anyos = anyos;
  }
  
  @Override
  public String toString() {
   return "Producto [id=" + id + ", nombre=" + nombre + ", DNI=" + DNI + ", sexo=" + sexo 
-		  + ", categoria=" + categoria + ", años=" + años + "]";
+		  + ", categoria=" + categoria + ", años=" + anyos + "]";
  }
  
 }

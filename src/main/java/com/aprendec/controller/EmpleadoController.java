@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  
 import com.aprendec.dao.EmpleadoDAO;
 import com.aprendec.model.Empleado;
+import com.aprendec.model.Nomina;
  
 /**
  * Servlet implementation class EmpleadoController
@@ -42,7 +43,7 @@ public class EmpleadoController extends HttpServlet {
   String opcion = request.getParameter("opcion");
  
   if (opcion.equals("crear")) {
-   System.out.println("Usted a presionado la opcion crear");
+   System.out.println("Usted ha presionado la opcion crear");
    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/crear.jsp");
    requestDispatcher.forward(request, response);
   } else if (opcion.equals("listar")) {
@@ -65,22 +66,6 @@ public class EmpleadoController extends HttpServlet {
    }
  
    System.out.println("Usted a presionado la opcion listar");
-  } else if (opcion.equals("meditar")) {
-   int id = Integer.parseInt(request.getParameter("id"));
-   System.out.println("Editar id: " + id);
-   EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-   Empleado emp = new Empleado();
-   try {
-    emp = empleadoDAO.obtenerEmpleado(id);
-    System.out.println(emp);
-    request.setAttribute("empleado", emp);
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/editar.jsp");
-    requestDispatcher.forward(request, response);
- 
-   } catch (SQLException e) {
-    // TODO Auto-generated catch block
-    e.printStackTrace();
-   }
  
   } else if (opcion.equals("eliminar")) {
    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -93,9 +78,35 @@ public class EmpleadoController extends HttpServlet {
    } catch (SQLException e) {
     // TODO Auto-generated catch block
     e.printStackTrace();
-   }
+   } 
  
-  }
+  } else if (opcion.equals("buscarNomina")) {
+	  EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+	   Nomina nomina = new Nomina();
+	   String dni = request.getParameter("dni");
+	   try {
+	    nomina = empleadoDAO.buscarNomina(dni);
+	    System.out.println(nomina);
+	    request.setAttribute("nomina", nomina);
+	    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/buscarNomina.jsp");
+	    requestDispatcher.forward(request, response);
+	   } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	   }
+  } else if (opcion.equals("filtrado")) {
+	  EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+	   Nomina nomina = new Nomina();
+	   String filtro = request.getParameter("filtro");
+	   String valorFiltro = request.getParameter("valorFiltro");
+	   try {
+	    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/filtrado.jsp");
+	    requestDispatcher.forward(request, response);
+	   } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	   }
+ }
   // response.getWriter().append("Served at: ").append(request.getContextPath());
  }
  
@@ -107,7 +118,6 @@ public class EmpleadoController extends HttpServlet {
    throws ServletException, IOException {
   // TODO Auto-generated method stub
   String opcion = request.getParameter("opcion");
-  Date fechaActual = new Date();
  
   if (opcion.equals("guardar")) {
    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -116,7 +126,7 @@ public class EmpleadoController extends HttpServlet {
    empleado.setNombre(request.getParameter("nombre"));
    empleado.setSexo(request.getParameter("sexo"));
    empleado.setCategoria(Integer.parseInt(request.getParameter("categoria")));
-   empleado.setAño(Integer.parseInt(request.getParameter("años")));
+   empleado.setAnyo(Integer.parseInt(request.getParameter("anyos")));
    try {
     empleadoDAO.guardar(empleado);
     System.out.println("Registro guardado satisfactoriamente...");
@@ -136,7 +146,7 @@ public class EmpleadoController extends HttpServlet {
    empleado.setNombre(request.getParameter("nombre"));
    empleado.setSexo(request.getParameter("sexo"));
    empleado.setCategoria(Integer.parseInt(request.getParameter("categoria")));
-   empleado.setAño(Integer.parseInt(request.getParameter("años")));
+   empleado.setAnyo(Integer.parseInt(request.getParameter("anyos")));
    try {
     empleadoDAO.editar(empleado);
     System.out.println("Registro editado satisfactoriamente...");
@@ -146,7 +156,21 @@ public class EmpleadoController extends HttpServlet {
     // TODO Auto-generated catch block
     e.printStackTrace();
    }
-  }
+  } else if (opcion.equals("buscarNomina")) {
+	  EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+	   Nomina nomina = new Nomina();
+	   String dni = request.getParameter("dni");
+	   try {
+	    nomina = empleadoDAO.buscarNomina(dni);
+	    System.out.println(nomina);
+	    request.setAttribute("nomina", nomina);
+	    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/buscarNomina.jsp");
+	    requestDispatcher.forward(request, response);
+	   } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	   }
+ }
  
   // doGet(request, response);
  }

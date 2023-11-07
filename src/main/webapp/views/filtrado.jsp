@@ -1,16 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
- pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listar Empleados</title>
+<title>Filtrar empleados</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
- <h1>Listar Empleados</h1>
- <table border="1">
+  <h1>Buscar Empleado</h1>
+  
+  <form action="empleados">
+  	<select name="filtro">
+  		<option value="nombre">Nombre</option>
+  		<option value="dni">DNI</option>
+  		<option value="sexo">Sexo</option>
+  		<option value="categoria">Categoria</option>
+  		<option value="anyos">Anyos</option>
+  	</select>
+  	<input type="text" name="valorFiltro" required>
+    <input type="text" hidden name="opcion" value="filtrado">
+    <input type="submit" value="Buscar">
+  </form>
+  
+   <table border="1">
   <tr>
    <td>Id</td>
    <td>DNI</td>
@@ -32,7 +46,9 @@
   </tr>
   </c:forEach>
  </table>
-  <form action="javascript:history.go(-1)">
+  
+    
+    <form action="javascript:history.go(-1)">
   <input type="submit" value="Volver">
   </form>
 </body>
