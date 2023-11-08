@@ -17,13 +17,14 @@
   		<option value="dni">DNI</option>
   		<option value="sexo">Sexo</option>
   		<option value="categoria">Categoria</option>
-  		<option value="anyos">Anyos</option>
+  		<option value="anyos">Años</option>
   	</select>
   	<input type="text" name="valorFiltro" required>
     <input type="text" hidden name="opcion" value="filtrado">
     <input type="submit" value="Buscar">
   </form>
   
+  <c:if test="${not empty lista}">
    <table border="1">
   <tr>
    <td>Id</td>
@@ -35,20 +36,19 @@
   </tr>
   <c:forEach var="empleado" items="${lista}">
   <tr>
-    <td>
-      <c:out value="${ empleado.id}"></c:out>
-    </td>
-    <td><c:out value="${ empleado.DNI}"></c:out></td>
-    <td><c:out value="${ empleado.nombre}"></c:out></td>
-    <td><c:out value="${ empleado.sexo}"></c:out></td>
-    <td><c:out value="${ empleado.categoria}"></c:out></td>
-    <td><c:out value="${ empleado.getAnyo()}"></c:out></td>
+    <td><c:out value="${empleado.id}"></c:out></td>
+    <td><c:out value="${empleado.DNI}"></c:out></td>
+    <td><c:out value="${empleado.nombre}"></c:out></td>
+    <td><c:out value="${empleado.sexo}"></c:out></td>
+    <td><c:out value="${empleado.categoria}"></c:out></td>
+    <td><c:out value="${empleado.getAnyo()}"></c:out></td>
   </tr>
   </c:forEach>
  </table>
+ </c:if>
   
     
-    <form action="javascript:history.go(-1)">
+    <form action="index.jsp">
   <input type="submit" value="Volver">
   </form>
 </body>

@@ -22,9 +22,8 @@ public class EmpleadoDAO {
 	 Nomina nomina = null;
      try {
     	 connection = obtenerConexion();
-    	 String sql = String.format("SELECT * FROM nominas WHERE dni_empleado = ?");
+    	 String sql = String.format("SELECT * FROM nominas WHERE dni_empleado = '%s'", dni);
     	 statement = connection.prepareStatement(sql);
-    	 statement.setString(1, dni);
     	 rs = statement.executeQuery();
     	 if (rs.next()) {
     		 nomina = new Nomina(rs.getString(1), rs.getInt(2));
@@ -39,17 +38,22 @@ public class EmpleadoDAO {
      return nomina;
  }
  
- public Empleado buscarEmpleado(String filtro, String valorFiltro) throws SQLException {
-	 Empleado empleado = null;
+ public List<Empleado> buscarEmpleado(String filtro, String valorFiltro) throws SQLException {
+	 List<Empleado> listaEmpleados = new ArrayList<>();
      try {
     	 connection = obtenerConexion();
-    	 String sql = String.format("SELECT * FROM empleados WHERE ? = ?");
+    	 String sql = String.format("SELECT * FROM empleados WHERE %s like '%s'", filtro, valorFiltro);
     	 statement = connection.prepareStatement(sql);
-    	 statement.setString(1, filtro);
-    	 statement.setString(2, valorFiltro);
-    	 rs = statement.executeQuery();
-    	 if (rs.next()) {
-    		 empleado = new Empleado(rs.getInt(1),rs .getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6));
+    	 rs = statement.executeQuery(sql);
+    	 while (rs.next()) { 
+    		 Empleado emp = new Empleado();
+    		    emp.setId(rs.getInt(1));
+    		    emp.setDNI(rs.getString(2));
+    		    emp.setNombre(rs.getString(3));
+    		    emp.setSexo(rs.getString(4));
+    		    emp.setCategoria(rs.getInt(5));
+    		    emp.setAnyo(rs.getInt(6));
+    		 listaEmpleados.add(emp);
     	 }
      
     	 statement.close();
@@ -58,7 +62,7 @@ public class EmpleadoDAO {
      } catch (SQLException e) {
     	 e.printStackTrace();
      }
-     return empleado;
+     return listaEmpleados;
  }
  
  // guardar producto
@@ -147,7 +151,6 @@ public class EmpleadoDAO {
  
  // obtener lista de empleados
  public List<Empleado> obtenerEmpleado() throws SQLException {
-  ResultSet resultSet = null;
   List<Empleado> listaEmpleados = new ArrayList<>();
  
   String sql = null;
@@ -157,15 +160,15 @@ public class EmpleadoDAO {
   try {
    sql = "SELECT * FROM empleados";
    statement = connection.prepareStatement(sql);
-   resultSet = statement.executeQuery(sql);
-   while (resultSet.next()) {
+   rs = statement.executeQuery(sql);
+   while (rs.next()) {
     Empleado emp = new Empleado();
-    emp.setId(resultSet.getInt(1));
-    emp.setDNI(resultSet.getString(2));
-    emp.setNombre(resultSet.getString(3));
-    emp.setSexo(resultSet.getString(4));
-    emp.setCategoria(resultSet.getInt(5));
-    emp.setAnyo(resultSet.getInt(6));
+    emp.setId(rs.getInt(1));
+    emp.setDNI(rs.getString(2));
+    emp.setNombre(rs.getString(3));
+    emp.setSexo(rs.getString(4));
+    emp.setCategoria(rs.getInt(5));
+    emp.setAnyo(rs.getInt(6));
     
     listaEmpleados.add(emp);
    }
@@ -179,7 +182,6 @@ public class EmpleadoDAO {
  
  // obtener producto
  public Empleado obtenerEmpleado(int idEmpleado) throws SQLException {
-  ResultSet resultSet = null;
   Empleado emp = new Empleado();
  
   String sql = null;
@@ -191,15 +193,15 @@ public class EmpleadoDAO {
    statement = connection.prepareStatement(sql);
    statement.setInt(1, idEmpleado);
  
-   resultSet = statement.executeQuery();
+   rs = statement.executeQuery();
  
-   if (resultSet.next()) {
-    emp.setId(resultSet.getInt(1));
-    emp.setDNI(resultSet.getString(2));
-    emp.setNombre(resultSet.getString(3));
-    emp.setSexo(resultSet.getString(4));
-    emp.setCategoria(resultSet.getInt(5));
-    emp.setAnyo(resultSet.getInt(6));
+   if (rs.next()) {
+    emp.setId(rs.getInt(1));
+    emp.setDNI(rs.getString(2));
+    emp.setNombre(rs.getString(3));
+    emp.setSexo(rs.getString(4));
+    emp.setCategoria(rs.getInt(5));
+    emp.setAnyo(rs.getInt(6));
     
    }
  

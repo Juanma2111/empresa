@@ -46,6 +46,7 @@ public class EmpleadoController extends HttpServlet {
    System.out.println("Usted ha presionado la opcion crear");
    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/crear.jsp");
    requestDispatcher.forward(request, response);
+   
   } else if (opcion.equals("listar")) {
  
    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
@@ -94,12 +95,16 @@ public class EmpleadoController extends HttpServlet {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	   }
+	   
   } else if (opcion.equals("filtrado")) {
-	  EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-	   Nomina nomina = new Nomina();
-	   String filtro = request.getParameter("filtro");
-	   String valorFiltro = request.getParameter("valorFiltro");
+	   EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+	   List<Empleado> lista = new ArrayList<>();
+	   
 	   try {
+		String filtro = request.getParameter("filtro");
+		String valorFiltro = request.getParameter("valorFiltro");
+	    lista = empleadoDAO.buscarEmpleado(filtro, valorFiltro);
+	    request.setAttribute("lista", lista);
 	    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/views/filtrado.jsp");
 	    requestDispatcher.forward(request, response);
 	   } catch (SQLException e) {

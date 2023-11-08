@@ -32,7 +32,7 @@
   </tr>
   </c:forEach>
  </table>
-  <form action="javascript:history.go(-1)">
+  <form action="index.jsp">
   <input type="submit" value="Volver">
   </form>
 </body>

@@ -73,7 +73,7 @@ public class Empleado {
  
  @Override
  public String toString() {
-  return "Producto [id=" + id + ", nombre=" + nombre + ", DNI=" + DNI + ", sexo=" + sexo 
+  return "Empleado [id=" + id + ", nombre=" + nombre + ", DNI=" + DNI + ", sexo=" + sexo 
 		  + ", categoria=" + categoria + ", años=" + anyos + "]";
  }
  

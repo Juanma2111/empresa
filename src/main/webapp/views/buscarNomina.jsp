@@ -15,6 +15,7 @@
         <input type="text" hidden name="opcion" value="buscarNomina">
         <input type="submit" value="Buscar">
     </form>
+    <c:if test="${not empty nomina}">
     <table border="1">
     	<tr>
     		<td>DNI</td>
@@ -25,10 +26,10 @@
     		<td><input type="text" name="DNI" size="9" value="${nomina.DNI}" readonly></td>
     		<td><input type="text" name="sueldo" size="15" value="${nomina.sueldo}" readonly></td>
     	</tr>
-    	
     </table>
+    </c:if>
     
-    <form action="javascript:history.go(-1)">
+    <form action="index.jsp">
   <input type="submit" value="Volver">
   </form>
 </body>
